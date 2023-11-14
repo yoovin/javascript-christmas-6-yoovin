@@ -19,7 +19,27 @@ const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
 const STAR = [3, 10, 17, 24, 25, 31];
 
 class App {
-    async run() {}
+    async run() {
+        const date = await InputView.readDate();
+        const [menus, categorieses] = await InputView.readMenu();
+        const totalPrice = this.calculateTotalPrice(menus);
+        const isChampagnePresent = this.isChampagnePresent(totalPrice);
+        const [discountPrice, discounts] = this.calculateDiscountPrice(
+            totalPrice,
+            date,
+            categorieses
+        );
+        const eventBadge = this.getEventBadge(discountPrice);
+
+        OutputView.printDate(date);
+        OutputView.printMenu(menus);
+        OutputView.printTotalPrice(totalPrice);
+        OutputView.printChampagne(isChampagnePresent);
+        OutputView.printDiscountPrice(discounts);
+        OutputView.printTotalDiscountPrice(discounts);
+        OutputView.printExpectResultPrice(discountPrice);
+        OutputView.printEventBadge(eventBadge);
+    }
 
     calculateTotalPrice(menus) {
         let totalPrice = 0;
@@ -34,13 +54,14 @@ class App {
         if (totalPrice < 10000) {
             return [0, discounts];
         }
-        if (totalPrice >= 120000) {
-            discounts['증정 이벤트'] = 25000;
-        }
         let discountPrice =
             this.calculateDdayDiscount(discounts, date) +
             this.calculateWeekdayDiscount(discounts, date, category) +
             this.calculateStarDiscount(discounts, date);
+
+        if (totalPrice >= 120000) {
+            discounts['증정 이벤트'] = 25000;
+        }
         return [totalPrice - discountPrice, discounts];
     }
 
