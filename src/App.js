@@ -77,11 +77,15 @@ class App {
     calculateWeekdayDiscount(discounts, date, category) {
         if (WEEKEND.includes(date)) {
             const price = category['메인'] * 2023;
-            discounts['주말 할인'] = price;
+            if (price > 0) {
+                discounts['주말 할인'] = price;
+            }
             return price;
         } else {
             const price = category['디저트'] * 2023;
-            discounts['평일 할인'] = price;
+            if (price > 0) {
+                discounts['평일 할인'] = price;
+            }
             return price;
         }
     }
