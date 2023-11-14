@@ -1,5 +1,5 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
-import OutputView from './OutputView';
+import OutputView from './OutputView.js';
 const Console = MissionUtils.Console;
 const MENUS = [
     '양송이수프',

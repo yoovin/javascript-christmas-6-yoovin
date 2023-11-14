@@ -31,14 +31,15 @@ class App {
         );
         const eventBadge = this.getEventBadge(discountPrice);
 
-        OutputView.printDate(date);
-        OutputView.printMenu(menus);
-        OutputView.printTotalPrice(totalPrice);
-        OutputView.printChampagne(isChampagnePresent);
-        OutputView.printDiscountPrice(discounts);
-        OutputView.printTotalDiscountPrice(discounts);
-        OutputView.printExpectResultPrice(discountPrice);
-        OutputView.printEventBadge(eventBadge);
+        OutputView.printResult(
+            date,
+            menus,
+            totalPrice,
+            isChampagnePresent,
+            discounts,
+            discountPrice,
+            eventBadge
+        );
     }
 
     calculateTotalPrice(menus) {

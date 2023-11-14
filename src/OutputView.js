@@ -75,6 +75,25 @@ const OutputView = {
     printError(error) {
         Console.print(error.message);
     },
+
+    printResult(
+        date,
+        menus,
+        totalPrice,
+        isChampagnePresent,
+        discounts,
+        discountPrice,
+        eventBadge
+    ) {
+        this.printDate(date);
+        this.printMenu(menus);
+        this.printTotalPrice(totalPrice);
+        this.printChampagne(isChampagnePresent);
+        this.printDiscountPrice(discounts);
+        this.printTotalDiscountPrice(discounts);
+        this.printExpectResultPrice(discountPrice);
+        this.printEventBadge(eventBadge);
+    },
 };
 
 export default OutputView;
