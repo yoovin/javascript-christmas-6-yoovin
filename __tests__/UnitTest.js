@@ -91,7 +91,7 @@ describe('기능 테스트', () => {
             양송이수프: 1,
             티본스테이크: 2,
         };
-        const result = InputView.calculateTotalPrice(menus);
+        const result = app.calculateTotalPrice(menus);
         expect(result).toEqual(116000);
     });
 
@@ -121,7 +121,7 @@ describe('기능 테스트', () => {
         const returns = [113000, 80977, 142554];
         for (let i = 0; i < totalPrices.length; i++) {
             expect(
-                InputView.calculateDiscountPrice(
+                app.calculateDiscountPrice(
                     totalPrices[i],
                     dates[i],
                     categorieses[i]
@@ -134,9 +134,7 @@ describe('기능 테스트', () => {
         const totalPrices = [116000, 83000, 151000];
         const returns = [false, false, true];
         for (let i = 0; i < totalPrices.length; i++) {
-            expect(InputView.isChampagnePresent(totalPrices[i])).toEqual(
-                returns[i]
-            );
+            expect(app.isChampagnePresent(totalPrices[i])).toEqual(returns[i]);
         }
     });
 
@@ -146,7 +144,7 @@ describe('기능 테스트', () => {
         const returns = ['별', '트리', '산타'];
         for (let i = 0; i < discountPrices.length; i++) {
             expect(
-                InputView.getEventBadge(totalPrices[i] - discountPrices[i])
+                app.getEventBadge(totalPrices[i] - discountPrices[i])
             ).toEqual(returns[i]);
         }
     });
