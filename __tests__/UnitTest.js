@@ -3,21 +3,20 @@ import InputView from '../src/InputView.js';
 
 describe('기능 테스트', () => {
     const app = new App();
-    const inputView = new InputView();
 
     test('식당 방문 날짜는 1 이상 31 이하의 숫자로만 입력받는다.', () => {
         expect(() => {
-            inputView.dateValidate('0');
+            InputView.dateValidate('0');
         }).toThrow('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
 
         expect(() => {
-            inputView.dateValidate('32');
+            InputView.dateValidate('32');
         }).toThrow('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
     });
 
     test('식당 방문 날짜는 숫자만 입력받는다.', () => {
         expect(() => {
-            inputView.dateValidate('a');
+            InputView.dateValidate('a');
         }).toThrow('[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.');
     });
 
@@ -26,7 +25,7 @@ describe('기능 테스트', () => {
 
         inputs.forEach((input) => {
             expect(() => {
-                inputView.menuValidate(input);
+                InputView.menuValidate(input);
             }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
         });
     });
@@ -37,20 +36,22 @@ describe('기능 테스트', () => {
             '바베큐립--,제로콜라-1',
             '초코케이크1',
         ];
-        expect(() => {
-            inputView.menuValidate();
-        }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+        inputs.forEach((input) => {
+            expect(() => {
+                InputView.menuValidate(input);
+            }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
+        });
     });
 
     test('고객이 메뉴판에 없는 메뉴를 입력하는 경우', () => {
         expect(() => {
-            inputView.menuValidate('티본스테이크-1,유빈이특제라면-1');
+            InputView.menuValidate('티본스테이크-1,유빈이특제라면-1');
         }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     });
 
     test('고객이 메뉴를 주문하지 않는 경우', () => {
         expect(() => {
-            inputView.menuValidate('');
+            InputView.menuValidate('');
         }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     });
 
@@ -58,7 +59,7 @@ describe('기능 테스트', () => {
         const inputs = ['제로콜라-1', '제로콜라-1,레드와인-2'];
         inputs.forEach((input) => {
             expect(() => {
-                inputView.menuValidate(input);
+                InputView.menuValidate(input);
             }).not.toThrow(
                 '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.'
             );
@@ -67,7 +68,7 @@ describe('기능 테스트', () => {
 
     test('고객이 중복 메뉴를 입력한 경우', () => {
         expect(() => {
-            inputView.menuValidate('티본스테이크-1,티본스테이크-1');
+            InputView.menuValidate('티본스테이크-1,티본스테이크-1');
         }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     });
 
@@ -78,7 +79,7 @@ describe('기능 테스트', () => {
         ];
         for (let i = 0; i < inputs.length; i++) {
             expect(() => {
-                inputView.menuValidate(inputs[i]);
+                InputView.menuValidate(inputs[i]);
             }).not.toThrow(
                 '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.'
             );
@@ -90,7 +91,7 @@ describe('기능 테스트', () => {
             양송이수프: 1,
             티본스테이크: 2,
         };
-        const result = inputView.calculateTotalPrice(menus);
+        const result = InputView.calculateTotalPrice(menus);
         expect(result).toEqual(116000);
     });
 
@@ -120,7 +121,7 @@ describe('기능 테스트', () => {
         const returns = [113000, 80977, 142554];
         for (let i = 0; i < totalPrices.length; i++) {
             expect(
-                inputView.calculateDiscountPrice(
+                InputView.calculateDiscountPrice(
                     totalPrices[i],
                     dates[i],
                     categorieses[i]
@@ -133,7 +134,7 @@ describe('기능 테스트', () => {
         const totalPrices = [116000, 83000, 151000];
         const returns = [false, false, true];
         for (let i = 0; i < totalPrices.length; i++) {
-            expect(inputView.isChampagnePresent(totalPrices[i])).toEqual(
+            expect(InputView.isChampagnePresent(totalPrices[i])).toEqual(
                 returns[i]
             );
         }
@@ -145,7 +146,7 @@ describe('기능 테스트', () => {
         const returns = ['별', '트리', '산타'];
         for (let i = 0; i < discountPrices.length; i++) {
             expect(
-                inputView.getEventBadge(totalPrices[i] - discountPrices[i])
+                InputView.getEventBadge(totalPrices[i] - discountPrices[i])
             ).toEqual(returns[i]);
         }
     });
