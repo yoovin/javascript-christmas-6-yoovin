@@ -42,6 +42,10 @@ class App {
         }
         return totalPrice - discountPrice;
     }
+
+    isChampagnePresent(totalPrice) {
+        return totalPrice >= 120000;
+    }
 }
 
 export default App;
