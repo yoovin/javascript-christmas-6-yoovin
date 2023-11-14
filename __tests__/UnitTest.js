@@ -84,4 +84,48 @@ describe('기능 테스트', () => {
             );
         }
     });
+
+    test('고객이 주문한 메뉴의 총 금액을 계산한다.', () => {
+        const menus = {
+            양송이수프: 1,
+            티본스테이크: 2,
+        };
+        const result = inputView.calculateTotalPrice(menus);
+        expect(result).toEqual(116000);
+    });
+
+    test('고객이 지불할 금액을 이벤트에 맞추어 할인한다.', () => {
+        const totalPrices = [116000, 83000, 151000];
+        const dates = [21, 26, 25];
+        const categorieses = [
+            {
+                에피타이저: 1,
+                메인: 2,
+                디저트: 0,
+                음료: 0,
+            },
+            {
+                에피타이저: 1,
+                메인: 2,
+                디저트: 1,
+                음료: 0,
+            },
+            {
+                에피타이저: 2,
+                메인: 2,
+                디저트: 2,
+                음료: 1,
+            },
+        ];
+        const returns = [113000, 80977, 142554];
+        for (let i = 0; i < totalPrices.length; i++) {
+            expect(
+                inputView.calculateDiscountPrice(
+                    totalPrices[i],
+                    dates[i],
+                    categorieses[i]
+                )
+            ).toEqual(returns[i]);
+        }
+    });
 });
