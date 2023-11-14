@@ -35,7 +35,7 @@ const OutputView = {
 
     printDiscountPrice(discounts) {
         Console.print('<혜택 내역>');
-        if (discounts.length === 0) {
+        if (Object.keys(discounts).length === 0) {
             Console.print('없음');
             Console.print('');
             return;
@@ -52,7 +52,11 @@ const OutputView = {
         for (let discount in discounts) {
             discountPrice += discounts[discount];
         }
-        Console.print(`-${discountPrice}원`);
+        if (discountPrice === 0) {
+            Console.print(`${discountPrice}원`);
+        } else {
+            Console.print(`-${discountPrice}원`);
+        }
         Console.print('');
     },
 
@@ -66,6 +70,10 @@ const OutputView = {
         Console.print('<12월 이벤트 배지>');
         Console.print(eventBadge);
         Console.print('');
+    },
+
+    printError(error) {
+        Console.print(error.message);
     },
 };
 
