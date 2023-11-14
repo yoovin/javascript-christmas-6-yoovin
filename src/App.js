@@ -34,6 +34,9 @@ class App {
         if (totalPrice < 10000) {
             return [0, discounts];
         }
+        if (totalPrice >= 120000) {
+            discounts['증정 이벤트'] = 25000;
+        }
         let discountPrice =
             this.calculateDdayDiscount(discounts, date) +
             this.calculateWeekdayDiscount(discounts, date, category) +
@@ -44,7 +47,7 @@ class App {
     calculateDdayDiscount(discounts, date) {
         if (date <= 25) {
             const price = 900 + date * 100;
-            discounts['D-day'] = price;
+            discounts['크리스마스 디데이 할인'] = price;
             return price;
         }
         return 0;
@@ -53,11 +56,11 @@ class App {
     calculateWeekdayDiscount(discounts, date, category) {
         if (WEEKEND.includes(date)) {
             const price = category['메인'] * 2023;
-            discounts['주말'] = price;
+            discounts['주말 할인'] = price;
             return price;
         } else {
             const price = category['디저트'] * 2023;
-            discounts['평일'] = price;
+            discounts['평일 할인'] = price;
             return price;
         }
     }
@@ -65,7 +68,7 @@ class App {
     calculateStarDiscount(discounts, date) {
         if (STAR.includes(date)) {
             const price = 1000;
-            discounts['star'] = price;
+            discounts['특별 할인'] = price;
             return price;
         }
         return 0;
