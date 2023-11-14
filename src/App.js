@@ -1,3 +1,6 @@
+import InputView from './InputView.js';
+import OutputView from './OutputView.js';
+
 const MENU_PRICES = {
     양송이수프: 6000,
     타파스: 5500,
@@ -12,7 +15,6 @@ const MENU_PRICES = {
     레드와인: 60000,
     샴페인: 25000,
 };
-
 const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
 const STAR = [3, 10, 17, 24, 25, 31];
 
@@ -28,6 +30,10 @@ class App {
     }
 
     calculateDiscountPrice(totalPrice, date, category) {
+        if (totalPrice < 10000) {
+            return 0;
+        }
+
         let discountPrice =
             this.calculateDdayDiscount(date) +
             this.calculateWeekdayDiscount(date, category) +
