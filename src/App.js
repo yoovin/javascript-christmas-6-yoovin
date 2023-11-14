@@ -30,35 +30,43 @@ class App {
     }
 
     calculateDiscountPrice(totalPrice, date, category) {
+        const discounts = {};
         if (totalPrice < 10000) {
-            return 0;
+            return [0, discounts];
         }
-
         let discountPrice =
-            this.calculateDdayDiscount(date) +
-            this.calculateWeekdayDiscount(date, category) +
-            this.calculateStarDiscount(date);
-        return totalPrice - discountPrice;
+            this.calculateDdayDiscount(discounts, date) +
+            this.calculateWeekdayDiscount(discounts, date, category) +
+            this.calculateStarDiscount(discounts, date);
+        return [totalPrice - discountPrice, discounts];
     }
 
-    calculateDdayDiscount(date) {
+    calculateDdayDiscount(discounts, date) {
         if (date <= 25) {
-            return 900 + date * 100;
+            const price = 900 + date * 100;
+            discounts['D-day'] = price;
+            return price;
         }
         return 0;
     }
 
-    calculateWeekdayDiscount(date, category) {
+    calculateWeekdayDiscount(discounts, date, category) {
         if (WEEKEND.includes(date)) {
-            return category['메인'] * 2023;
+            const price = category['메인'] * 2023;
+            discounts['주말'] = price;
+            return price;
         } else {
-            return category['디저트'] * 2023;
+            const price = category['디저트'] * 2023;
+            discounts['평일'] = price;
+            return price;
         }
     }
 
-    calculateStarDiscount(date) {
+    calculateStarDiscount(discounts, date) {
         if (STAR.includes(date)) {
-            return 1000;
+            const price = 1000;
+            discounts['star'] = price;
+            return price;
         }
         return 0;
     }
