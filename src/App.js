@@ -13,6 +13,9 @@ const MENU_PRICES = {
     샴페인: 25000,
 };
 
+const WEEKEND = [1, 2, 8, 9, 15, 16, 22, 23, 29, 30];
+const STAR = [3, 10, 17, 24, 25, 31];
+
 class App {
     async run() {}
 
@@ -22,6 +25,22 @@ class App {
             totalPrice += MENU_PRICES[menu] * menus[menu];
         }
         return totalPrice;
+    }
+
+    calculateDiscountPrice(totalPrice, date, category) {
+        let discountPrice = 0;
+        if (date <= 25) {
+            discountPrice += 900 + date * 100;
+        }
+        if (WEEKEND.includes(date)) {
+            discountPrice += category['메인'] * 2023;
+        } else {
+            discountPrice += category['디저트'] * 2023;
+        }
+        if (STAR.includes(date)) {
+            discountPrice += 1000;
+        }
+        return totalPrice - discountPrice;
     }
 }
 
