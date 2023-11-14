@@ -28,19 +28,33 @@ class App {
     }
 
     calculateDiscountPrice(totalPrice, date, category) {
-        let discountPrice = 0;
-        if (date <= 25) {
-            discountPrice += 900 + date * 100;
-        }
-        if (WEEKEND.includes(date)) {
-            discountPrice += category['메인'] * 2023;
-        } else {
-            discountPrice += category['디저트'] * 2023;
-        }
-        if (STAR.includes(date)) {
-            discountPrice += 1000;
-        }
+        let discountPrice =
+            this.calculateDdayDiscount(date) +
+            this.calculateWeekdayDiscount(date, category) +
+            this.calculateStarDiscount(date);
         return totalPrice - discountPrice;
+    }
+
+    calculateDdayDiscount(date) {
+        if (date <= 25) {
+            return 900 + date * 100;
+        }
+        return 0;
+    }
+
+    calculateWeekdayDiscount(date, category) {
+        if (WEEKEND.includes(date)) {
+            return category['메인'] * 2023;
+        } else {
+            return category['디저트'] * 2023;
+        }
+    }
+
+    calculateStarDiscount(date) {
+        if (STAR.includes(date)) {
+            return 1000;
+        }
+        return 0;
     }
 
     isChampagnePresent(totalPrice) {
