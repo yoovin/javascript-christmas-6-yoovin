@@ -60,6 +60,18 @@ class App {
     isChampagnePresent(totalPrice) {
         return totalPrice >= 120000;
     }
+
+    getEventBadge(price) {
+        if (price >= 20000) {
+            return '산타';
+        } else if (price >= 10000) {
+            return '트리';
+        } else if (price >= 5000) {
+            return '별';
+        } else {
+            return '없음';
+        }
+    }
 }
 
 export default App;
