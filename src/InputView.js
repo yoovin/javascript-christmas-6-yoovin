@@ -1,3 +1,5 @@
+import { MissionUtils } from '@woowacourse/mission-utils';
+const Console = MissionUtils.Console;
 const MENUS = [
     '양송이수프',
     '타파스',
