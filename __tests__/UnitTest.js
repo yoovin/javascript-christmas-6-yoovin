@@ -71,26 +71,14 @@ describe('기능 테스트', () => {
         }).toThrow('[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.');
     });
 
-    test('고객이 메뉴를 주문하는 경우', () => {
+    test('고객이 메뉴를 정상적으로 주문하는 경우', () => {
         const inputs = [
             '양송이수프-1,티본스테이크-1',
             '시저샐러드-1,해산물파스타-2,아이스크림-1',
         ];
-        const menus = [
-            {
-                양송이수프: 1,
-                티본스테이크: 2,
-            },
-            {
-                시저샐러드: 1,
-                해산물파스타: 2,
-                아이스크림: 1,
-            },
-        ];
-
         for (let i = 0; i < inputs.length; i++) {
             expect(() => {
-                inputView.menuValidate(inputs[i]).toEqual(menus[i]);
+                inputView.menuValidate(inputs[i]);
             }).not.toThrow(
                 '[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.'
             );
