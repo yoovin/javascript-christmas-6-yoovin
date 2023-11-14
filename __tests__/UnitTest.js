@@ -128,4 +128,25 @@ describe('기능 테스트', () => {
             ).toEqual(returns[i]);
         }
     });
+
+    test('고객이 주문한 메뉴의 총금액이 12만원 이상일 때, 샴페인을 증정한다.', () => {
+        const totalPrices = [116000, 83000, 151000];
+        const returns = [false, false, true];
+        for (let i = 0; i < totalPrices.length; i++) {
+            expect(inputView.isChampagnePresent(totalPrices[i])).toEqual(
+                returns[i]
+            );
+        }
+    });
+
+    test('고객이 받은 할인 금액에 따라 이벤트 배지를 부여한다.', () => {
+        const totalPrices = [116000, 83000, 151000];
+        const discountPrices = [110000, 72000, 120000];
+        const returns = ['별', '트리', '산타'];
+        for (let i = 0; i < discountPrices.length; i++) {
+            expect(
+                inputView.getEventBadge(totalPrices[i] - discountPrices[i])
+            ).toEqual(returns[i]);
+        }
+    });
 });
